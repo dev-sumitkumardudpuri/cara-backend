@@ -16,12 +16,23 @@ const app = express();
 // ==========================================
 // GLOBAL MIDDLEWARE CONFIGURATIONS
 // ==========================================
+const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:5173"];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS Policy: This origin is not allowed"));
+      }
+    },
     credentials: true,
   }),
 );
+
 app.use(express.json());
 
 // Initialize connection with the persistence database layer
