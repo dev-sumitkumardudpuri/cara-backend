@@ -5,7 +5,7 @@ import {
   toggleMessageStatus,
   getAllOrders,
 } from "../controllers/adminController.js";
-import { protect, adminCheck } from "../middlewares/authmiddleware.js";
+import { protect, adminCheck } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
